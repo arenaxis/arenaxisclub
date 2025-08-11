@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arenaxis - Play Games, Learn Code, Have Fun!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#f59e0b',
+                        dark: '#1f2937'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .code-editor { background: #1e293b; border-radius: 8px; }
+        .game-card { background: linear-gradient(145deg, #ffffff, #f1f5f9); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-primary">🎮 Arenaxis</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="nav-link text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#games" class="nav-link text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Games</a>
+                        <a href="#learn" class="nav-link text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Learn</a>
+                        <a href="#community" class="nav-link text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Community</a>
+                        <a href="#about" class="nav-link text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-primary">Home</a>
+                <a href="#games" class="block px-3 py-2 text-gray-700 hover:text-primary">Games</a>
+                <a href="#learn" class="block px-3 py-2 text-gray-700 hover:text-primary">Learn</a>
+                <a href="#community" class="block px-3 py-2 text-gray-700 hover:text-primary">Community</a>
+                <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-primary">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Play Games, Learn Code, Have Fun! 🚀</h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">The ultimate platform where gaming meets coding education</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="scrollToSection('games')" class="bg-accent hover:bg-yellow-500 text-white font-semibold py-4 px-8 rounded-lg text-lg transition-colors transform hover:scale-105">
+                    🎮 Play Games
+                </button>
+                <button onclick="scrollToSection('learn')" class="bg-white hover:bg-gray-100 text-primary font-semibold py-4 px-8 rounded-lg text-lg transition-colors transform hover:scale-105">
+                    💻 Learn Coding
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Games Carousel -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">🔥 Featured Games</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div class="game-card p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="playGame('puzzle')">
+                    <div class="w-full h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-4xl">🧩</span>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Puzzle Master</h3>
+                    <p class="text-gray-600 text-sm">Challenge your mind with brain-teasing puzzles</p>
+                </div>
+                <div class="game-card p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="playGame('platformer')">
+                    <div class="w-full h-32 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-4xl">🏃</span>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Jump Quest</h3>
+                    <p class="text-gray-600 text-sm">Platform adventure with exciting challenges</p>
+                </div>
+                <div class="game-card p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="playGame('arcade')">
+                    <div class="w-full h-32 bg-gradient-to-br from-red-400 to-pink-500 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-4xl">🚀</span>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Space Shooter</h3>
+                    <p class="text-gray-600 text-sm">Classic arcade action in space</p>
+                </div>
+                <div class="game-card p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="playGame('memory')">
+                    <div class="w-full h-32 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-4xl">🧠</span>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Memory Game</h3>
+                    <p class="text-gray-600 text-sm">Test and improve your memory skills</p>
+                </div>
+                <div class="game-card p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="playGame('snake')">
+                    <div class="w-full h-32 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-4xl">🐍</span>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">Snake Classic</h3>
+                    <p class="text-gray-600 text-sm">The timeless snake game reimagined</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Tutorials -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">📚 Featured Tutorials</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="openTutorial('html-basics')">
+                    <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">HTML</span>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-3">HTML Basics</h3>
+                    <p class="text-gray-600 mb-4">Learn the foundation of web development with HTML</p>
+                    <span class="text-green-600 font-medium">Beginner • 30 min</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="openTutorial('css-styling')">
+                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">CSS</span>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-3">CSS Styling</h3>
+                    <p class="text-gray-600 mb-4">Make your websites beautiful with CSS</p>
+                    <span class="text-green-600 font-medium">Beginner • 45 min</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="openTutorial('js-game')">
+                    <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">JS</span>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-3">Build a Simple Game</h3>
+                    <p class="text-gray-600 mb-4">Create your first game with JavaScript</p>
+                    <span class="text-orange-600 font-medium">Intermediate • 60 min</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">🎮 Games Collection</h2>
+            
+            <!-- Search and Filters -->
+            <div class="mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div class="relative flex-1 max-w-md">
+                    <input type="text" id="game-search" placeholder="Search games..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="filter-btn bg-primary text-white px-4 py-2 rounded-lg" data-filter="all">All</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300" data-filter="puzzle">Puzzle</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300" data-filter="arcade">Arcade</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300" data-filter="adventure">Adventure</button>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Games will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Learn Section -->
+    <section id="learn" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">💻 Learn to Code</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-lg sticky top-24">
+                        <h3 class="font-semibold text-lg mb-4">📖 Table of Contents</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="tutorial-link text-primary hover:underline" data-tutorial="html-intro">HTML Introduction</a></li>
+                            <li><a href="#" class="tutorial-link text-gray-600 hover:text-primary hover:underline" data-tutorial="css-basics">CSS Basics</a></li>
+                            <li><a href="#" class="tutorial-link text-gray-600 hover:text-primary hover:underline" data-tutorial="js-fundamentals">JavaScript Fundamentals</a></li>
+                            <li><a href="#" class="tutorial-link text-gray-600 hover:text-primary hover:underline" data-tutorial="responsive-design">Responsive Design</a></li>
+                            <li><a href="#" class="tutorial-link text-gray-600 hover:text-primary hover:underline" data-tutorial="game-development">Game Development</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white p-8 rounded-xl shadow-lg">
+                        <div id="tutorial-content">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-800">HTML Introduction</h3>
+                            <p class="text-gray-600 mb-6">HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page using elements and tags.</p>
+                            
+                            <h4 class="text-xl font-semibold mb-4 text-gray-800">Basic HTML Structure</h4>
+                            <div class="code-editor p-4 mb-6">
+                                <pre class="text-green-400"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+    &lt;p&gt;This is my first paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                            </div>
+
+                            <h4 class="text-xl font-semibold mb-4 text-gray-800">Try It Yourself</h4>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">HTML Code:</label>
+                                    <textarea id="html-editor" class="w-full h-32 p-3 border border-gray-300 rounded-lg font-mono text-sm" placeholder="Write your HTML here...">&lt;h1&gt;Hello, World!&lt;/h1&gt;
+&lt;p&gt;Edit this text!&lt;/p&gt;</textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Preview:</label>
+                                    <div id="html-preview" class="w-full h-32 p-3 border border-gray-300 rounded-lg bg-white overflow-auto">
+                                        <h1>Hello, World!</h1>
+                                        <p>Edit this text!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="updatePreview()" class="mt-4 bg-primary hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                                Run Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">🌟 Community</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- User Showcase -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">🎨 User Creations</h3>
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 p-6 rounded-xl">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">A</div>
+                                <div class="ml-3">
+                                    <h4 class="font-semibold">Alex Chen</h4>
+                                    <p class="text-gray-600 text-sm">Created a puzzle game</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">"Just finished my first JavaScript game using the tutorials here! Thanks Arenaxis! 🎮"</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-xl">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white font-semibold">S</div>
+                                <div class="ml-3">
+                                    <h4 class="font-semibold">Sarah Johnson</h4>
+                                    <p class="text-gray-600 text-sm">Built a portfolio website</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700">"The HTML and CSS tutorials were perfect for building my portfolio. Highly recommend! 💻"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold mb-4">Share Your Creation</h4>
+                        <form class="space-y-4">
+                            <input type="text" placeholder="Your name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="text" placeholder="Project title" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <textarea placeholder="Tell us about your project..." class="w-full p-3 border border-gray-300 rounded-lg h-24 focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                            <button type="submit" class="bg-primary hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                                Share Project
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Discussion Forum -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">💬 Discussions</h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-primary mb-2">How to make games responsive?</h4>
+                            <p class="text-gray-600 text-sm mb-2">Posted by Mike_Dev • 2 hours ago</p>
+                            <p class="text-gray-700">Looking for tips on making HTML5 canvas games work well on mobile devices...</p>
+                            <div class="mt-2 flex items-center space-x-4 text-sm text-gray-500">
+                                <span>👍 12</span>
+                                <span>💬 5 replies</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-primary mb-2">Best practices for CSS animations</h4>
+                            <p class="text-gray-600 text-sm mb-2">Posted by CodeMaster • 5 hours ago</p>
+                            <p class="text-gray-700">What are your favorite CSS animation techniques for web games?</p>
+                            <div class="mt-2 flex items-center space-x-4 text-sm text-gray-500">
+                                <span>👍 8</span>
+                                <span>💬 3 replies</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-primary mb-2">Beginner-friendly game ideas?</h4>
+                            <p class="text-gray-600 text-sm mb-2">Posted by NewCoder123 • 1 day ago</p>
+                            <p class="text-gray-700">Just finished the JavaScript tutorial. What simple games should I try building first?</p>
+                            <div class="mt-2 flex items-center space-x-4 text-sm text-gray-500">
+                                <span>👍 15</span>
+                                <span>💬 12 replies</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button class="w-full bg-secondary hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                            Start New Discussion
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">🚀 About Arenaxis</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">Our Mission</h3>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        At Arenaxis, we believe that learning to code should be as fun and engaging as playing your favorite games. 
+                        We've created a unique platform that combines the excitement of browser-based gaming with comprehensive, 
+                        easy-to-follow coding tutorials.
+                    </p>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Whether you're a complete beginner looking to write your first line of code, or a gaming enthusiast 
+                        wanting to create your own games, Arenaxis provides the tools, resources, and community to help you succeed.
+                    </p>
+                    <div class="flex space-x-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-primary">50+</div>
+                            <div class="text-gray-600">Games</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-primary">100+</div>
+                            <div class="text-gray-600">Tutorials</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-primary">10K+</div>
+                            <div class="text-gray-600">Users</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-800">Meet the Team</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-semibold">JD</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-lg">Jane Doe</h4>
+                                <p class="text-gray-600">Founder & Lead Developer</p>
+                                <p class="text-gray-500 text-sm">10+ years in game development</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-white text-xl font-semibold">MS</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-lg">Mike Smith</h4>
+                                <p class="text-gray-600">Education Director</p>
+                                <p class="text-gray-500 text-sm">Former coding bootcamp instructor</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white text-xl font-semibold">LJ</div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-lg">Lisa Johnson</h4>
+                                <p class="text-gray-600">UX Designer</p>
+                                <p class="text-gray-500 text-sm">Specialist in educational interfaces</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="mt-16 bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto">
+                <h3 class="text-2xl font-semibold mb-6 text-center text-gray-800">Get in Touch</h3>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <input type="text" placeholder="Subject" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <textarea placeholder="Your Message" class="w-full p-3 border border-gray-300 rounded-lg h-32 focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                    <button type="submit" class="w-full bg-primary hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">🎮 Arenaxis</h3>
+                    <p class="text-gray-300">Where gaming meets coding education. Learn, play, and create amazing things!</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#games" class="hover:text-white transition-colors">Games</a></li>
+                        <li><a href="#learn" class="hover:text-white transition-colors">Learn</a></li>
+                        <li><a href="#community" class="hover:text-white transition-colors">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">HTML Tutorials</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">CSS Guides</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">JavaScript Lessons</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Game Development</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">📧 Email</a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">🐦 Twitter</a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">💬 Discord</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 Arenaxis. All rights reserved. Made with ❤️ for gamers and coders.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Game Modal -->
+    <div id="game-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="game-title" class="text-2xl font-bold">Game Title</h3>
+                <button onclick="closeGameModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div id="game-container" class="bg-gray-100 rounded-lg p-8 text-center">
+                <canvas id="game-canvas" width="600" height="400" class="border border-gray-300 rounded-lg mx-auto"></canvas>
+                <div class="mt-4">
+                    <p id="game-instructions" class="text-gray-600 mb-4">Game instructions will appear here</p>
+                    <button id="start-game-btn" onclick="startCurrentGame()" class="bg-primary hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                        Start Game
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Navigation link smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Games data
+        const games = [
+            { id: 'puzzle', title: 'Puzzle Master', category: 'puzzle', emoji: '🧩', description: 'Challenge your mind with brain-teasing puzzles' },
+            { id: 'platformer', title: 'Jump Quest', category: 'adventure', emoji: '🏃', description: 'Platform adventure with exciting challenges' },
+            { id: 'arcade', title: 'Space Shooter', category: 'arcade', emoji: '🚀', description: 'Classic arcade action in space' },
+            { id: 'memory', title: 'Memory Game', category: 'puzzle', emoji: '🧠', description: 'Test and improve your memory skills' },
+            { id: 'snake', title: 'Snake Classic', category: 'arcade', emoji: '🐍', description: 'The timeless snake game reimagined' },
+            { id: 'tetris', title: 'Block Puzzle', category: 'puzzle', emoji: '🔲', description: 'Arrange falling blocks to clear lines' },
+            { id: 'racing', title: 'Speed Racer', category: 'arcade', emoji: '🏎️', description: 'High-speed racing action' },
+            { id: 'rpg', title: 'Quest Adventure', category: 'adventure', emoji: '⚔️', description: 'Epic role-playing adventure' }
+        ];
+
+        // Populate games grid
+        function populateGames(gamesToShow = games) {
+            const gamesGrid = document.getElementById('games-grid');
+            gamesGrid.innerHTML = '';
+            
+            gamesToShow.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card p-6 rounded-xl shadow-lg card-hover cursor-pointer';
+                gameCard.onclick = () => playGame(game.id);
+                gameCard.innerHTML = `
+                    <div class="w-full h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg mb-4 flex items-center justify-center">
+                        <span class="text-4xl">${game.emoji}</span>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">${game.title}</h3>
+                    <p class="text-gray-600 text-sm mb-4">${game.description}</p>
+                    <button class="w-full bg-primary hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                        Play Now
+                    </button>
+                `;
+                gamesGrid.appendChild(gameCard);
+            });
+        }
+
+        // Initialize games
+        populateGames();
+
+        // Game filtering
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active filter button
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.className = 'filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300';
+                });
+                this.className = 'filter-btn bg-primary text-white px-4 py-2 rounded-lg';
+                
+                // Filter games
+                const filter = this.dataset.filter;
+                const filteredGames = filter === 'all' ? games : games.filter(game => game.category === filter);
+                populateGames(filteredGames);
+            });
+        });
+
+        // Game search
+        document.getElementById('game-search').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(searchTerm) || 
+                game.description.toLowerCase().includes(searchTerm)
+            );
+            populateGames(filteredGames);
+        });
+
+        // Game modal functionality
+        let currentGame = null;
+
+        function playGame(gameId) {
+            const game = games.find(g => g.id === gameId);
+            if (!game) return;
+            
+            currentGame = gameId;
+            document.getElementById('game-title').textContent = game.title;
+            document.getElementById('game-instructions').textContent = `Welcome to ${game.title}! ${game.description}`;
+            document.getElementById('game-modal').classList.remove('hidden');
+            
+            // Initialize the game canvas
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#f3f4f6';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#374151';
+            ctx.font = '24px Poppins';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${game.emoji} ${game.title}`, canvas.width/2, canvas.height/2 - 20);
+            ctx.font = '16px Poppins';
+            ctx.fillText('Click "Start Game" to begin!', canvas.width/2, canvas.height/2 + 20);
+        }
+
+        function closeGameModal() {
+            document.getElementById('game-modal').classList.add('hidden');
+            currentGame = null;
+        }
+
+        function startCurrentGame() {
+            if (!currentGame) return;
+            
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Simple demo game based on type
+            switch(currentGame) {
+                case 'snake':
+                    startSnakeGame(ctx, canvas);
+                    break;
+                case 'memory':
+                    startMemoryGame(ctx, canvas);
+                    break;
+                case 'puzzle':
+                    startPuzzleGame(ctx, canvas);
+                    break;
+                default:
+                    startGenericGame(ctx, canvas);
+            }
+        }
+
+        // Simple Snake Game
+        function startSnakeGame(ctx, canvas) {
+            let snake = [{x: 200, y: 200}];
+            let food = {x: 300, y: 300};
+            let dx = 20, dy = 0;
+            let score = 0;
+            
+            function gameLoop() {
+                // Clear canvas
+                ctx.fillStyle = '#1f2937';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Move snake
+                const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+                snake.unshift(head);
+                
+                // Check food collision
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    food = {
+                        x: Math.floor(Math.random() * (canvas.width/20)) * 20,
+                        y: Math.floor(Math.random() * (canvas.height/20)) * 20
+                    };
+                } else {
+                    snake.pop();
+                }
+                
+                // Check wall collision
+                if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+                    alert(`Game Over! Score: ${score}`);
+                    return;
+                }
+                
+                // Draw snake
+                ctx.fillStyle = '#10b981';
+                snake.forEach(segment => {
+                    ctx.fillRect(segment.x, segment.y, 18, 18);
+                });
+                
+                // Draw food
+                ctx.fillStyle = '#ef4444';
+                ctx.fillRect(food.x, food.y, 18, 18);
+                
+                // Draw score
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '20px Poppins';
+                ctx.textAlign = 'left';
+                ctx.fillText(`Score: ${score}`, 10, 30);
+                
+                setTimeout(gameLoop, 150);
+            }
+            
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                switch(e.key) {
+                    case 'ArrowUp': if (dy === 0) { dx = 0; dy = -20; } break;
+                    case 'ArrowDown': if (dy === 0) { dx = 0; dy = 20; } break;
+                    case 'ArrowLeft': if (dx === 0) { dx = -20; dy = 0; } break;
+                    case 'ArrowRight': if (dx === 0) { dx = 20; dy = 0; } break;
+                }
+            });
+            
+            gameLoop();
+        }
+
+        // Simple Memory Game
+        function startMemoryGame(ctx, canvas) {
+            const colors = ['#ef4444', '#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'];
+            let cards = [];
+            let flippedCards = [];
+            let matches = 0;
+            
+            // Create card pairs
+            for (let i = 0; i < 6; i++) {
+                cards.push({color: colors[i], flipped: false, matched: false});
+                cards.push({color: colors[i], flipped: false, matched: false});
+            }
+            
+            // Shuffle cards
+            cards.sort(() => Math.random() - 0.5);
+            
+            // Position cards
+            cards.forEach((card, index) => {
+                card.x = (index % 4) * 140 + 50;
+                card.y = Math.floor(index / 4) * 120 + 50;
+            });
+            
+            function drawCards() {
+                ctx.fillStyle = '#1f2937';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                cards.forEach(card => {
+                    if (card.flipped || card.matched) {
+                        ctx.fillStyle = card.color;
+                    } else {
+                        ctx.fillStyle = '#6b7280';
+                    }
+                    ctx.fillRect(card.x, card.y, 120, 100);
+                    
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(card.x, card.y, 120, 100);
+                });
+                
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '20px Poppins';
+                ctx.textAlign = 'left';
+                ctx.fillText(`Matches: ${matches}/6`, 10, 30);
+            }
+            
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                cards.forEach(card => {
+                    if (x >= card.x && x <= card.x + 120 && y >= card.y && y <= card.y + 100) {
+                        if (!card.flipped && !card.matched && flippedCards.length < 2) {
+                            card.flipped = true;
+                            flippedCards.push(card);
+                            
+                            if (flippedCards.length === 2) {
+                                setTimeout(() => {
+                                    if (flippedCards[0].color === flippedCards[1].color) {
+                                        flippedCards[0].matched = true;
+                                        flippedCards[1].matched = true;
+                                        matches++;
+                                        if (matches === 6) {
+                                            alert('Congratulations! You won!');
+                                        }
+                                    } else {
+                                        flippedCards[0].flipped = false;
+                                        flippedCards[1].flipped = false;
+                                    }
+                                    flippedCards = [];
+                                    drawCards();
+                                }, 1000);
+                            }
+                            drawCards();
+                        }
+                    }
+                });
+            });
+            
+            drawCards();
+        }
+
+        // Generic game placeholder
+        function startGenericGame(ctx, canvas) {
+            ctx.fillStyle = '#1f2937';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '24px Poppins';
+            ctx.textAlign = 'center';
+            ctx.fillText('🎮 Game Started!', canvas.width/2, canvas.height/2 - 40);
+            ctx.font = '16px Poppins';
+            ctx.fillText('This is a demo game. Click anywhere to play!', canvas.width/2, canvas.height/2);
+            ctx.fillText('More games coming soon!', canvas.width/2, canvas.height/2 + 40);
+            
+            canvas.addEventListener('click', () => {
+                const colors = ['#ef4444', '#10b981', '#3b82f6', '#f59e0b', '#8b5cf6'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                ctx.fillStyle = randomColor;
+                ctx.beginPath();
+                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, 20, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        function startPuzzleGame(ctx, canvas) {
+            startGenericGame(ctx, canvas);
+        }
+
+        // Tutorial functionality
+        function updatePreview() {
+            const htmlCode = document.getElementById('html-editor').value;
+            const preview = document.getElementById('html-preview');
+            preview.innerHTML = htmlCode;
+        }
+
+        // Update preview on input
+        document.getElementById('html-editor').addEventListener('input', updatePreview);
+
+        // Tutorial navigation
+        document.querySelectorAll('.tutorial-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active link
+                document.querySelectorAll('.tutorial-link').forEach(l => {
+                    l.className = 'tutorial-link text-gray-600 hover:text-primary hover:underline';
+                });
+                this.className = 'tutorial-link text-primary hover:underline';
+                
+                // Load tutorial content (simplified)
+                const tutorial = this.dataset.tutorial;
+                loadTutorial(tutorial);
+            });
+        });
+
+        function loadTutorial(tutorialId) {
+            const content = document.getElementById('tutorial-content');
+            
+            switch(tutorialId) {
+                case 'css-basics':
+                    content.innerHTML = `
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800">CSS Basics</h3>
+                        <p class="text-gray-600 mb-6">CSS (Cascading Style Sheets) is used to style and layout web pages. It controls colors, fonts, spacing, and positioning.</p>
+                        
+                        <h4 class="text-xl font-semibold mb-4 text-gray-800">Basic CSS Syntax</h4>
+                        <div class="code-editor p-4 mb-6">
+                            <pre class="text-green-400"><code>h1 {
+    color: blue;
+    font-size: 24px;
+    text-align: center;
+}
+
+p {
+    color: #333;
+    line-height: 1.6;
+}</code></pre>
+                        </div>
+
+                        <h4 class="text-xl font-semibold mb-4 text-gray-800">Try It Yourself</h4>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">CSS Code:</label>
+                                <textarea id="css-editor" class="w-full h-32 p-3 border border-gray-300 rounded-lg font-mono text-sm" placeholder="Write your CSS here...">h1 { color: red; }
+p { color: blue; }</textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preview:</label>
+                                <div id="css-preview" class="w-full h-32 p-3 border border-gray-300 rounded-lg bg-white overflow-auto">
+                                    <h1 style="color: red;">Styled Heading</h1>
+                                    <p style="color: blue;">This is styled text!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="updateCSSPreview()" class="mt-4 bg-primary hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                            Apply Styles
+                        </button>
+                    `;
+                    break;
+                case 'js-fundamentals':
+                    content.innerHTML = `
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800">JavaScript Fundamentals</h3>
+                        <p class="text-gray-600 mb-6">JavaScript adds interactivity to web pages. It can respond to user actions, manipulate content, and create dynamic experiences.</p>
+                        
+                        <h4 class="text-xl font-semibold mb-4 text-gray-800">Basic JavaScript</h4>
+                        <div class="code-editor p-4 mb-6">
+                            <pre class="text-green-400"><code>// Variables
+let message = "Hello, World!";
+const pi = 3.14159;
+
+// Functions
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Event handling
+document.getElementById("myButton").onclick = function() {
+    alert("Button clicked!");
+};</code></pre>
+                        </div>
+
+                        <h4 class="text-xl font-semibold mb-4 text-gray-800">Interactive Example</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <input type="text" id="name-input" placeholder="Enter your name" class="p-2 border rounded mr-2">
+                            <button onclick="greetUser()" class="bg-primary text-white px-4 py-2 rounded hover:bg-indigo-700">Greet Me!</button>
+                            <p id="greeting-output" class="mt-2 font-semibold"></p>
+                        </div>
+                    `;
+                    break;
+                default:
+                    // Keep current HTML tutorial content
+                    break;
+            }
+        }
+
+        function updateCSSPreview() {
+            // This would update CSS preview in a real implementation
+            alert('CSS preview updated! In a full implementation, this would apply your styles.');
+        }
+
+        function greetUser() {
+            const name = document.getElementById('name-input').value;
+            const output = document.getElementById('greeting-output');
+            if (name) {
+                output.textContent = `Hello, ${name}! Welcome to JavaScript!`;
+                output.style.color = '#6366f1';
+            } else {
+                output.textContent = 'Please enter your name first!';
+                output.style.color = '#ef4444';
+            }
+        }
+
+        function openTutorial(tutorialId) {
+            scrollToSection('learn');
+            setTimeout(() => {
+                const link = document.querySelector(`[data-tutorial="${tutorialId}"]`);
+                if (link) {
+                    link.click();
+                }
+            }, 500);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('game-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeGameModal();
+            }
+        });
+
+        // Form submissions (demo)
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your submission! This is a demo form.');
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'969c9ce7b42254a4',t:'MTc1NDI5NTM4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
+
